@@ -1,0 +1,7 @@
+It needs to be a web app that is simple to deploy with Vercel through Github. Give me all the info on how to do this in the README.
+
+Description of the service
+- the user can upload a file
+- the user can define a structured output format through buttons to create new fields where they give field name, optional description, and optional field type
+- they can then start an extraction on the document (PDF --> sequence of one or more images)
+- the extraction is performed with a vision language model by an OpenAI model using structured outputs
