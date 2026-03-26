@@ -2,10 +2,16 @@
 
 import * as XLSX from "xlsx";
 
+export interface TokenUsage {
+  input_tokens: number;
+  output_tokens: number;
+}
+
 export interface DocumentResult {
   name: string;
   result?: Record<string, unknown>;
   error?: string;
+  usage?: TokenUsage | null;
 }
 
 interface ResultsViewProps {
@@ -100,6 +106,13 @@ export default function ResultsView({ results }: ResultsViewProps) {
                     ))}
                   </tbody>
                 </table>
+                {doc.usage && (
+                  <div className="px-4 py-2 border-t border-gray-100 flex gap-4 text-xs text-gray-500">
+                    <span>Input tokens: <span className="font-medium text-gray-700">{doc.usage.input_tokens.toLocaleString()}</span></span>
+                    <span>Output tokens: <span className="font-medium text-gray-700">{doc.usage.output_tokens.toLocaleString()}</span></span>
+                    <span>Total: <span className="font-medium text-gray-700">{(doc.usage.input_tokens + doc.usage.output_tokens).toLocaleString()}</span></span>
+                  </div>
+                )}
                 <div className="px-4 py-2 border-t border-gray-100">
                   <details className="text-sm">
                     <summary className="cursor-pointer text-gray-500 hover:text-gray-700">

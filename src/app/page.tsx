@@ -77,7 +77,7 @@ function Home() {
         if (!res.ok) {
           allResults.push({ name: doc.name, error: data.error || "Extraction failed" });
         } else {
-          allResults.push({ name: doc.name, result: data.result });
+          allResults.push({ name: doc.name, result: data.result, usage: data.usage });
         }
       } catch {
         allResults.push({ name: doc.name, error: "Network error" });

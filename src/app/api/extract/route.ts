@@ -22,6 +22,12 @@ function buildJsonSchema(fields: FieldDefinition[]) {
       case "boolean":
         prop.type = "boolean";
         break;
+      case "date":
+        prop.type = "string";
+        prop.description = (field.description ? field.description + ". " : "") + "Format: DD/MM/YYYY";
+        properties[field.name] = prop;
+        required.push(field.name);
+        continue;
       case "array":
         prop.type = "array";
         prop.items = { type: "string" };
@@ -124,7 +130,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ result: JSON.parse(content) });
+    const usage = response.usage
+      ? {
+          input_tokens: response.usage.prompt_tokens,
+          output_tokens: response.usage.completion_tokens,
+        }
+      : null;
+
+    return NextResponse.json({ result: JSON.parse(content), usage });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Extraction failed";
     return NextResponse.json({ error: message }, { status: 500 });
