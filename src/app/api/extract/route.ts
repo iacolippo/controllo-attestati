@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 
     const client = new OpenAI({
       apiKey,
-      baseURL: "https://paradigm.lighton.ai/api/v2",
+      baseURL: "https://paradigm.lighton.ai/api/v3",
     });
 
     const imageMessages: OpenAI.Chat.Completions.ChatCompletionContentPart[] =
